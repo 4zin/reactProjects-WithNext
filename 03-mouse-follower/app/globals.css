@@ -17,16 +17,25 @@
 }
 
 body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  color: white;
+  background: rgb(28, 27, 27);
   display: grid;
-  place-items: center;
+  place-content: center;
   min-height: 100vh;
+}
+
+button {
+  padding: 10px;
+  border-radius: 5px;
+  border: 2px solid transparent;
+  font-family: inherit;
+  background: gold;
+  color: black;
+  cursor: pointer;
+}
+
+button:hover {
+  border-color: black;
 }
 
 @layer utilities {
