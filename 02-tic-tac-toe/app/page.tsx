@@ -1,6 +1,6 @@
 "use client";
 import { openSans } from "./ui/fonts";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import confetti from "canvas-confetti";
 
 //components
@@ -12,19 +12,19 @@ import { WinnerModal } from "./components/WinnerModal";
 import { saveGameToStorage, resetGameStorage } from "./storage";
 
 export default function Home() {
-  const [board, setBoard] = useState<string[]>(() => {
-    const boardFromStorage = window.localStorage.getItem("board");
-
-    return boardFromStorage
-      ? JSON.parse(boardFromStorage)
-      : Array(9).fill(null);
-  });
-  const [turn, setTurn] = useState(() => {
-    const turnFromStorage = window.localStorage.getItem("turn");
-    return turnFromStorage ?? TURNS.X;
-  });
-
+  const [board, setBoard] = useState<string[]>(Array(9).fill(null));
+  const [turn, setTurn] = useState(TURNS.X);
   const [winner, setWinner] = useState<string | null | false>(null);
+
+  useEffect(() => {
+    const boardFromStorage = window.localStorage.getItem("board");
+    const turnFromStorage = window.localStorage.getItem("turn");
+
+    setBoard(
+      boardFromStorage ? JSON.parse(boardFromStorage) : Array(9).fill(null)
+    );
+    setTurn(turnFromStorage || TURNS.X);
+  }, []);
 
   const updateBoard = (index: number) => {
     if (board[index] || winner) return;
@@ -47,7 +47,7 @@ export default function Home() {
     }
   };
 
-  const resteGame = () => {
+  const resetGame = () => {
     setBoard(Array(9).fill(null));
     setTurn(TURNS.X);
     setWinner(null);
@@ -61,7 +61,7 @@ export default function Home() {
         Tic tac toe
       </h1>
       <button
-        onClick={resteGame}
+        onClick={resetGame}
         className="py-[8px] px-[12px] m-[25px] w-[200px] bg-transparent border border-white rounded-md duration-[0.2s] font-bold hover:bg-white hover:text-black"
       >
         Reset game
@@ -90,7 +90,7 @@ export default function Home() {
         </Square>
       </section>
 
-      <WinnerModal resteGame={resteGame} winner={winner} />
+      <WinnerModal resteGame={resetGame} winner={winner} />
     </main>
   );
 }
