@@ -1,40 +1,16 @@
 "use client";
 
 import Image from "next/image";
-import { useState, useEffect } from "react";
-import { getRandomFact } from '../services/index'
+import { useCatImage } from "../hooks/useCatImage";
+import { useCatFact } from "../hooks/useCatFact";
 
-const PREFIX_URL = 'https://cataas.com'
-
-function useCatImage({fact}: {fact: string}) {
-  const [image, setImage] = useState<string>();
-
-  useEffect(()=>{
-    if(!fact) return
-    const firstWord = fact.split(" ")[0]
-    console.log(firstWord);
-    
-    setImage(`${PREFIX_URL}/cat/says/${firstWord}?fontSize=50&fontColor=white`)
-  },[fact])
-
-  return {image}
-}
 
 const Home = () => {
-  const [fact, setFact] = useState<string>();
+  const {fact, refreshFact} = useCatFact()
   const {image} = useCatImage({fact} as {fact: string})
-
   
-
-  useEffect(() => {
-    getRandomFact().then(newFact => setFact(newFact))
-  },[])
-
-  
-
-  const handleClick = async () =>{
-    const newFact = await getRandomFact()
-    setFact(newFact)
+  const handleClick = async () => {
+    refreshFact()
   }
 
   return (
