@@ -21,7 +21,7 @@ const Home = () => {
         className="bg-slate-300 border border-black px-1 rounded-md mb-4 hover:bg-slate-400 active:translate-y-1 shadow-lg duration-75">
           Get new fact
         </button>
-      {fact && <span>{fact}</span>}
+      {fact && <p>{fact}</p>}
       {image && <Image src={image} alt="gatito" width={300} height={300} priority={true} />}
     </div>
   );
