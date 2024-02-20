@@ -4,3 +4,12 @@ export type Movie = {
     year: string
     poster: string
 }
+
+export type ApiResponse = {
+    Search: {
+        imdbID: string;
+        Title: string;
+        Year: string;
+        Poster: string;
+    }[];
+}
