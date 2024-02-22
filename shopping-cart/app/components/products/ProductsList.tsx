@@ -16,7 +16,7 @@ export function ProductsList({ products }: { products: ProductsType }) {
                                 alt={product.title}
                                 width={450}
                                 height={450}
-                                className="w-full h-3/4 rounded-md aspect-video block bg-white"
+                                className="w-3/4 h-3/4 rounded-md aspect-video block bg-white"
                             />
                             <div className="flex justify-center">
                                 <h3 className="m-0">{product.title} - ${product.price}</h3>
