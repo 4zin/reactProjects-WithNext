@@ -9,7 +9,7 @@ export function ProductsList({ products }: { products: ProductsType }) {
                 {
                     products.map((product) => (
                         <li key={product.id}
-                            className="flex flex-col justify-center items-center shadow-sm shadow-black  rounded bg-[#111] text-white p-4"
+                            className="flex flex-col justify-center items-center shadow-md shadow-black  rounded bg-[#111] text-white p-4"
                         >
                             <Image
                                 src={product.thumbnail}
@@ -19,7 +19,9 @@ export function ProductsList({ products }: { products: ProductsType }) {
                                 className="w-3/4 h-3/4 rounded-md aspect-video block bg-white"
                             />
                             <div className="flex justify-center">
-                                <h3 className="m-0">{product.title} - ${product.price}</h3>
+                                <h3 className="m-0 font-bold">{product.title}</h3>
+                                &nbsp;
+                                <h3>- ${product.price}</h3>
                             </div>
                             <div className="flex justify-center">
                                 <button>

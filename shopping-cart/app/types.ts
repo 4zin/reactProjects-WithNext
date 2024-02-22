@@ -11,3 +11,8 @@ export type ProductsType = {
     thumbnail: string;
     images: string[];
 }[]
+
+export type Filters = {
+    category: string;
+    minPrice: number;
+}
