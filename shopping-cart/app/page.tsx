@@ -1,9 +1,10 @@
-import Image from "next/image";
+import productsData from './mocks/products.json'
+import { ProductsList } from "./components/products/ProductsList";
 
 export default function Home() {
   return (
     <div>
-      <h1>Hello World</h1>
+      <ProductsList products={productsData.products} />
     </div>
   );
 }
