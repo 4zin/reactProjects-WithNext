@@ -1,24 +1,25 @@
+import { useFilters } from "az1n<prefix>/app/hooks/useFilters"
 import { Filters } from "az1n<prefix>/app/types"
 import React, { useState, useId } from "react"
 import { Dispatch, SetStateAction } from "react"
 
-export function Filter({ onChange }: { onChange: Dispatch<SetStateAction<Filters>> }) {
+export function Filter() {
+    const { filters, setFilters } = useFilters()
 
-    const [price, setPrice] = useState<number>(0)
+
 
     const categoryFilterId = useId()
     const minPriceFilterId = useId()
 
     const handleRangePrice = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setPrice(Number(event.target.value))
-        onChange(prevState => ({
+        setFilters(prevState => ({
             ...prevState,
             minPrice: Number(event.target.value)
         }))
     }
 
     const handleChangeCategory = (event: React.ChangeEvent<HTMLSelectElement>) => {
-        onChange(prevState => ({
+        setFilters(prevState => ({
             ...prevState,
             category: event.target.value
         }))
@@ -33,8 +34,9 @@ export function Filter({ onChange }: { onChange: Dispatch<SetStateAction<Filters
                     min='0'
                     max='1000'
                     onChange={handleRangePrice}
+                    value={filters.minPrice}
                 />
-                <span>{price}</span>
+                <span>{filters.minPrice}</span>
             </div>
 
             <div className="flex gap-4">
