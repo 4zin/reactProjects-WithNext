@@ -16,3 +16,18 @@ export type Filters = {
     category: string;
     minPrice: number;
 }
+
+export type ProductsCartType = {
+    id: number;
+    title: string;
+    description: string;
+    price: number;
+    discountPercentage: number;
+    rating: number;
+    stock: number;
+    brand: string;
+    category: string;
+    thumbnail: string;
+    images: string[];
+    quantity: number;
+}[]

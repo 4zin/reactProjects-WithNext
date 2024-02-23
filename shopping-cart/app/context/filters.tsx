@@ -1,5 +1,5 @@
 'use client'
-import { createContext, useState, Dispatch, SetStateAction } from "react";
+import { createContext, useState, SetStateAction } from "react";
 import { Filters } from "../types";
 
 type FiltersContextType = {

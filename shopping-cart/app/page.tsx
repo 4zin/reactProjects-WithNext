@@ -4,8 +4,9 @@ import { ProductsList } from "./components/products/ProductsList";
 import { Header } from './components/header/Header';
 import { Footer } from './components/footer/Footer';
 import { Cart } from './components/cart/Cart';
-import { useState, useContext } from 'react';
+import { useState } from 'react';
 import { useFilters } from './hooks/useFilters';
+import { CartProvider } from './context/cart';
 
 
 
@@ -20,10 +21,12 @@ export default function Home() {
 
   return (
     <div className='m-4'>
-      <Header />
-      <Cart />
-      <ProductsList products={filteredProducts} />
-      <Footer />
+      <CartProvider>
+        <Header />
+        <Cart />
+        <ProductsList products={filteredProducts} />
+        <Footer />
+      </CartProvider>
     </div>
   );
 }
