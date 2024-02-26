@@ -17,9 +17,8 @@ function CartItem({ thumbnail, title, price, quantity, addToCart }: CartItemProp
             <Image
                 src={thumbnail}
                 alt={title}
-                width={300}
-                height={300}
-                priority
+                width={500}
+                height={500}
                 className="w-auto h-auto aspect-video"
             />
 
@@ -31,13 +30,15 @@ function CartItem({ thumbnail, title, price, quantity, addToCart }: CartItemProp
                 <small>
                     Qty: {quantity}
                 </small>
-                <button onClick={addToCart} className="p-2">+</button>
+                <button onClick={() => addToCart()} className="p-2">+</button>
             </footer>
         </li>
     )
 }
 
 export function Cart() {
+
+
     const cartCheckboxId = useId()
 
     const [isChecked, setIsChecked] = useState(false)
@@ -61,7 +62,7 @@ export function Cart() {
             <aside className={`flex flex-col justify-center items-center bg-[#000] p-[32px] fixed right-0 top-0 w-[200px] h-screen ${isChecked ? 'block' : 'hidden'}`}>
                 <ul>
                     {
-                        cart.map(product => (
+                        cart.map((product) => (
                             <CartItem
                                 key={product.id}
                                 addToCart={() => addToCart(product)}

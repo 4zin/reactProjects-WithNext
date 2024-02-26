@@ -1,5 +1,6 @@
-import { ReactNode, createContext, useState } from "react";
+import { ReactNode, createContext, useReducer } from "react";
 import { ProductsCartType } from "../types";
+import { cartReducer, cartInitialState } from "../components/reducers/cartReducer";
 
 interface CartContextProps {
     cart: ProductsCartType;
@@ -10,40 +11,31 @@ interface CartContextProps {
 
 export const cartContext = createContext<CartContextProps | undefined>(undefined)
 
+function useCartReducer() {
+    const [state, dispatch] = useReducer(cartReducer, cartInitialState)
+
+    const addToCart = (product: ProductsCartType[0]) => dispatch({
+        type: 'ADD_TO_CART',
+        payload: product
+    })
+
+    const removeFromCart = (product: ProductsCartType[0]) => dispatch({
+        type: 'REMOVE_FROM_CART',
+        payload: product
+    })
+
+    const clearCart = () => dispatch({ type: 'CLEAR_CART' })
+
+    return { state, addToCart, removeFromCart, clearCart }
+}
+
 export function CartProvider({ children }: { children: ReactNode }) {
-    const [cart, setCart] = useState<ProductsCartType>([])
+    const { state, addToCart, removeFromCart, clearCart } = useCartReducer()
 
-    const addToCart = (product: ProductsCartType[0]) => {
-        const productInCartIndex = cart.findIndex(item => item.id === product.id)
-
-        if (productInCartIndex >= 0) {
-            const newCart = structuredClone(cart)
-            newCart[productInCartIndex].quantity += 1
-            return setCart(newCart)
-        }
-
-        //*Producto no esta en el carrito
-        setCart(prevState => ([
-            ...prevState,
-            {
-                ...product,
-                quantity: 1
-            }
-        ]))
-
-    }
-
-    const removeFromCart = (product: ProductsCartType[0]) => {
-        setCart(prevState => prevState.filter(item => item.id !== product.id))
-    }
-
-    const clearCart = () => {
-        setCart([])
-    }
 
     return (
         <cartContext.Provider value={{
-            cart,
+            cart: state,
             addToCart,
             removeFromCart,
             clearCart
